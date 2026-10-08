@@ -1,0 +1,29 @@
+{
+  "kind": "evm_project",
+  "token": {
+    "contract": "LaunchToken",
+    "name": "Swarm Harvester",
+    "symbol": "HARVEST",
+    "decimals": 18
+  },
+  "contracts": [
+    {
+      "contract": "SwarmHarvester",
+      "constructorArgs": []
+    },
+    {
+      "contract": "SwarmSeller",
+      "constructorArgs": [
+        "0x000000000004444c5dc75cb358380d2e3de08a90",
+        "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7"
+      ]
+    }
+  ],
+  "pool": {
+    "pairedCurrency": "0x0000000000000000000000000000000000000000",
+    "fee": 3000,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "notes": "LaunchToken has no constructor arguments. SwarmHarvester has no constructor arguments and forwards permissionless claims to distributors, which pay the named account. SwarmSeller constructor arguments are the approved Ethereum mainnet Uniswap v4 PoolManager and IMD token, in that order; both dependencies are immutable. Neither application depends on LaunchToken or on the other application. Neither application has an owner or requires initialization calls. SwarmSeller sends floor(gross IMD output / 200) to its fixed burn sink in the same transaction; this application fee is separate from pool trading fees. Pairing conflict for independent review: the approved workflow requests an IMD launch pair, while this assignment and admission require native ETH. This manifest therefore uses native ETH; that does not resolve or authorize a change to the workflow's IMD pairing decision. SwarmSeller still sells into IMD using caller-supplied routes. The factory supplies the LP, MerkleDistributor and initialization-only PoolInitializationGuard. Policy, opening-price derivation, live trading fees, signed artifact linkage, publication, admission and deployment belong to the launch services; these notes do not grant deployment authority."
+}
